@@ -1,0 +1,18 @@
+version: '3'
+services:
+  tcb-vote-back:
+    image: thecloudbootcamp/redis:6.0.8
+    container_name: tcb-vote-back
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+        - "6379:6379"
+
+  tcb-vote-front:
+    build: ./tcb-vote
+    image: thecloudbootcamp/tcb-vote:latest
+    container_name: tcb-vote-front
+    environment:
+      REDIS: tcb-vote-back
+    ports:
+        - "8080:80"
